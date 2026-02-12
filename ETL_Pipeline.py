@@ -4,7 +4,7 @@
 # MAGIC This notebook performs ETL operations on the data lake
 
 # COMMAND ----------
-
+DATABRICKS_INSTANCE = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiUrl().get()
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when, lit
 
@@ -27,3 +27,4 @@ df.display()
 
 transformed_df = df.withColumn("processed_date", lit(current_date()))
 transformed_df.write.format("delta").mode("overwrite").save("/mnt/data/processed_table")
+
